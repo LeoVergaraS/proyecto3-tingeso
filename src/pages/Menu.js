@@ -7,7 +7,7 @@ import pizzas from "../data/pizzas";
 import bebidas from "../data/bebidas";
 import salsas from "../data/salsas";
 
-const Menu = ({addToCart}) => {
+const Menu = ({addToCart, addToCartByS}) => {
     return (
         
         <div>
@@ -37,7 +37,7 @@ const Menu = ({addToCart}) => {
                     >
                         {bebidas.map((bebida, index) => {
                             return (
-                                <BebidaCard key={index} bebida={bebida} />
+                                <BebidaCard key={index} bebida={bebida} addToCart={addToCartByS} />
                             );
                         })}
                     </Grid>
@@ -50,7 +50,7 @@ const Menu = ({addToCart}) => {
                     >
                         {salsas.map((salsa, index) => {
                             return (
-                                <SalsaCard key={index} salsa={salsa} />
+                                <SalsaCard key={index} salsa={salsa} addToCart={addToCartByS} />
                             );
                         })}
                     </Grid>

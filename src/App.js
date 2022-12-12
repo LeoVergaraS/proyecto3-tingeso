@@ -18,10 +18,15 @@ function App() {
     setShowCart(false);
   };
 
+  const limpirarCarrito = () => {
+    setCart([]);
+  }
+
   const addToCart = (order) => {
     let cartIndex = cart.findIndex(item => (
       item.id === order.id &&
-      item.tamanio === order.tamanio ));
+      item.tamanio === order.tamanio &&
+      item.nombre === order.nombre ));
     let item = cart[cartIndex];
     if (item) {
       item.cantidad += order.cantidad;
@@ -32,17 +37,32 @@ function App() {
     }
   };
 
+  const addToCartBebidaYSalsa = (order) => {
+    let cartIndex = cart.findIndex(item => (
+      item.id === order.id &&
+      item.nombre === order.nombre));
+    let item = cart[cartIndex];
+    if (item) {
+      item.cantidad += order.cantidad;
+      item.precio += order.precio;
+      setCart(cart);
+    }else{
+      setCart([...cart, order]);
+    }
+  }
+
   return (
     <Layout 
       cart={cart}
       showCart={showCart}
       openCart={openCart}
       closeCart={closeCart}
+      cleanCart={limpirarCarrito}
     >
       <Container>
         <Routes>
           <Route path="/" element={<Index/>} exact/>
-          <Route path="/menu" element={<Menu addToCart={addToCart}/>} exact/>
+          <Route path="/menu" element={<Menu addToCart={addToCart} addToCartByS={addToCartBebidaYSalsa}/>} exact/>
         </Routes>
       </Container>
     </Layout>
