@@ -60,9 +60,9 @@ const PizzaCard = ({ pizza, addToCart }) => {
                             onChange={handleChange}
                             defaultValue={pizza.sizes[1]}
                         >
-                            <MenuItem value={pizza.sizes[0]}>{pizza.sizes[0]}-{pizza.precios[0]}</MenuItem>
-                            <MenuItem value={pizza.sizes[1]}>{pizza.sizes[1]}-{pizza.precios[1]}</MenuItem>
-                            <MenuItem value={pizza.sizes[2]}>{pizza.sizes[2]}-{pizza.precios[2]}</MenuItem>
+                            <MenuItem value={pizza.sizes[0]}> {pizza.sizes[0]}-{pizza.precios[0]} </MenuItem>
+                            <MenuItem value={pizza.sizes[1]}> {pizza.sizes[1]}-{pizza.precios[1]} </MenuItem>
+                            <MenuItem value={pizza.sizes[2]}> {pizza.sizes[2]}-{pizza.precios[2]} </MenuItem>
                         </Select>
                     </FormControl>
                     <TextField sx={{ mt: 2 }}

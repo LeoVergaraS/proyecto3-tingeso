@@ -8,15 +8,14 @@ export default function ElevateAppBar(props) {
     ];
 
     return (
-        <AppBar position="sticky">
+        <AppBar position="sticky" >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                 <Box sx={{
                         flexGrow: 1,
                         display: { xs: "flex", md: "flex" },
                         justifyContent: "center",
-                        alignItems: "center",
-                        mr: 20
+                        alignItems: "center"
                     }}>
 
                         {sections.map((section) => (

@@ -5,6 +5,8 @@ import './App.css';
 import Layout from './components/Layout';
 import Index from './pages/Index';
 import Menu from './pages/Menu';
+import Pago from './pages/Pago';
+import Personalizada from './pages/Personalizada';
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -20,6 +22,16 @@ function App() {
 
   const limpirarCarrito = () => {
     setCart([]);
+  }
+
+  const eliminarItem = (id) => {
+    let newCart = [];
+    for(let i = 0; i < cart.length; i++){
+      if(i !== id){
+        newCart.push(cart[i]);
+      }
+    }
+    setCart(newCart);
   }
 
   const addToCart = (order) => {
@@ -58,11 +70,14 @@ function App() {
       openCart={openCart}
       closeCart={closeCart}
       cleanCart={limpirarCarrito}
+      deleteItem={eliminarItem}
     >
       <Container>
         <Routes>
           <Route path="/" element={<Index/>} exact/>
           <Route path="/menu" element={<Menu addToCart={addToCart} addToCartByS={addToCartBebidaYSalsa}/>} exact/>
+          <Route path="/tupizza" element={<Personalizada />} exact/>
+          <Route path="/pago" element={<Pago addToCart={addToCart} addToCartByS={addToCartBebidaYSalsa}/>} exact/>
         </Routes>
       </Container>
     </Layout>

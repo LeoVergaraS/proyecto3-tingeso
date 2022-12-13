@@ -1,15 +1,20 @@
-import { Avatar, Box, Drawer, Paper, Typography } from "@mui/material";
+import { Avatar, Box, Button, Drawer, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import pizzas from "../data/pizzas";
 import CloseIcon from '@mui/icons-material/Close';
 
-const Carro = ({ closeCart, show, cart, clean }) => {
+const Carro = ({ closeCart, show, cart, clean, deleteI }) => {
+
+    const guardarCarro = () => {
+        localStorage.setItem('carro', JSON.stringify(cart));
+        window.location.href = "/pago";
+    };
 
     const [total, setTotal] = useState(0);
     const getTotal = () => {
         let total = 0;
-        if(cart.length > 0){
-            total = cart.reduce((acc, order) => {return acc + order.precio}, 0);
+        if (cart.length > 0) {
+            total = cart.reduce((acc, order) => { return acc + order.precio }, 0);
         }
         setTotal(total);
     };
@@ -34,16 +39,19 @@ const Carro = ({ closeCart, show, cart, clean }) => {
                 <Box
                     display="flex"
                     alignItems="start"
-                    sx={{ pt: 2, pb: 2, pl: 2, pr:2 }}
+                    sx={{ pt: 2, pb: 2, pl: 2, pr: 2 }}
                     justifyContent={"space-between"}>
-                    <Avatar src={order.imagen} sx={{ mr: 2, justifyContent: "center"}} />
+                    <Avatar src={order.imagen} sx={{ mr: 2, justifyContent: "center" }} />
                     <Box display="flex" flexDirection={"column"} sx={{ mr: 2 }} >
                         <Typography>{order.nombre}</Typography>
                         <Typography variant="subtitle2">{order.descripcion}</Typography>
                         {buscarProducto(order)}
                         <Typography variant="subtitle2">Cantidad: {order.cantidad}</Typography>
                     </Box>
-                    <Typography variant="h5" justifyContent={"end"}>${order.precio}</Typography>
+                    <Box display="flex" flexDirection={"column"}>
+                        <Typography variant="h5" justifyContent={"end"}>${order.precio}</Typography>
+                        <CloseIcon sx={{ ml: 7 }} onClick={() => deleteI(index)} />
+                    </Box>
                 </Box>
             </Box>
         );
@@ -68,11 +76,12 @@ const Carro = ({ closeCart, show, cart, clean }) => {
                 flexDirection="column"
                 alignItems="center"
             >
-                <Typography variant="h5" sx={{mb: 1}}>Tu pedido <CloseIcon sx={{mt: 2}} onClick={() => clean()}/></Typography>
+                <Typography variant="h5" sx={{ mb: 1 }}>Tu pedido <CloseIcon sx={{ mt: 2 }} onClick={() => clean()} /></Typography>
                 <Paper>
                     {cartContent}
                 </Paper>
-                <Typography variant="h5" sx={{mt: 2}}>Total: $<b>{total}</b></Typography>
+                <Typography variant="h5" sx={{ mt: 2 }}>Total: $<b>{total}</b></Typography>
+                <Button onClick={guardarCarro}>Pagar</Button>
             </Box>
         </Drawer>
     );

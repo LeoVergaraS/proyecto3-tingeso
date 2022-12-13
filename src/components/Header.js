@@ -100,7 +100,7 @@ const Header = ({cart, openCart}) => {
                         display: { xs: "none", md: "flex" },
                         justifyContent: "center",
                         alignItems: "center",
-                        mr: 20
+                        mr: 11
                     }}>
                         {pages.map((page) => (
                         <Button
