@@ -9,8 +9,23 @@ import Pago from './pages/Pago';
 import Personalizada from './pages/Personalizada';
 
 function App() {
-  const [cart, setCart] = useState([]);
+  const loadCart = () => {
+    if (localStorage.getItem('carro') === null) {
+      return [];
+    }
+    else {
+      let carro = JSON.parse(localStorage.getItem('carro'));
+      return carro;
+    }
+  }
+
+  const [cart, setCart] = useState(loadCart());
+  localStorage.setItem('carro', JSON.stringify(cart));
   const [showCart, setShowCart] = useState(false);
+
+  const saveCart = () => {
+    localStorage.setItem('carro', JSON.stringify(cart));
+  };
 
   const openCart = () => {
     setShowCart(true);
@@ -20,8 +35,9 @@ function App() {
     setShowCart(false);
   };
 
-  const limpirarCarrito = () => {
+  const limpiarCarrito = () => {
     setCart([]);
+    saveCart();
   }
 
   const eliminarItem = (id) => {
@@ -32,6 +48,7 @@ function App() {
       }
     }
     setCart(newCart);
+    saveCart();
   }
 
   const addToCart = (order) => {
@@ -47,6 +64,7 @@ function App() {
     }else{
       setCart([...cart, order]);
     }
+    saveCart();
   };
 
   const addToCartBebidaYSalsa = (order) => {
@@ -61,7 +79,8 @@ function App() {
     }else{
       setCart([...cart, order]);
     }
-  }
+    saveCart();
+  };
 
   return (
     <Layout 
@@ -69,7 +88,7 @@ function App() {
       showCart={showCart}
       openCart={openCart}
       closeCart={closeCart}
-      cleanCart={limpirarCarrito}
+      cleanCart={limpiarCarrito}
       deleteItem={eliminarItem}
     >
       <Container>

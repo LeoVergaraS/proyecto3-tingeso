@@ -1,7 +1,5 @@
-import { CheckBox } from "@mui/icons-material";
-import { Avatar, Box, Container, FormControlLabel, Grid, makeStyles, Paper, Radio, RadioGroup, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material"
+import { Box, Container, FormControlLabel, Grid,  Paper, Radio, RadioGroup, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material"
 import { useState } from "react";
-import AddIcon from '@mui/icons-material/Add';
 
 const Personalizada = () => {
     const quesos = [
@@ -176,6 +174,7 @@ const Personalizada = () => {
                                 value={detalle.carnes}
                                 onChange={handleCarne}
                                 aria-label="carnes"
+                                maxWidth="lg"
                             >
                                 {carnes.map((carne, index) => {
                                     return (

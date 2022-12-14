@@ -2,7 +2,6 @@ import { AppBar, Box, Button, Container, Grid, Typography } from "@mui/material"
 import PizzaCard from "../components/PizzaCard";
 import BebidaCard from "../components/BebidaCard";
 import SalsaCard from "../components/SalsaCard";
-import ElevateAppBar from "../components/NavbarE";
 import pizzas from "../data/pizzas";
 import bebidas from "../data/bebidas";
 import salsas from "../data/salsas";
@@ -12,75 +11,59 @@ const Menu = ({ addToCart, addToCartByS }) => {
         <div>
             <AppBar sx={{
                 mt: 8,
-                //without background
                 backgroundColor: 'transparent',
-                //without shadow
                 boxShadow: 'none',
-                //appbar only in the left
             }}>
                 <Box
                     sx={{
                         flexGrow: 1,
-                        display: { xs: 'none', md: 'flex', },
-                        //without background
-
+                        display: { xs: 'flex', md: 'flex'},
+                        justifyContent: 'right',
+                        alignItems: 'center',
                     }}
                 >
                     <Button
-                        /* go to pizzas smooth scroll*/
                         href="#pizzas"
                         sx={{
-                            my: 2, px: 2, color: "white", display: "block",
-                            //background color
-                            backgroundColor: '#8b0000',
-                            //smooth scroll to the section
-                            scrollBehavior: 'smooth',
-                            //scroll just up the section
-
-                            //space between buttons
+                            my: 2, px: 2, color: "black", display: "block",
+                            backgroundColor: '#FFF',
                             mx: 2,
-                            //buttons at the left
-                            float: 'left',
-                            //shadow of the button
+                            border: '1px solid #008000',
                             boxShadow: '0 0 10px 0 #000000',
+                            borderRadius: '15px',
                             '&:hover': {
-                                //slight pink
-                                backgroundColor: '#ff5c8e',
+                                backgroundColor: '#B5B2B2',
                             },
                         }}
                     >
                         Pizzas
                     </Button>
                     <Button
-                        /* go to bebestibles smooth scroll*/
-                        href="#bebestibles"
+                        href="#bebidas"
                         sx={{
-                            my: 2, px: 2, color: "white", display: "block",
-                            backgroundColor: '#8b0000',
-                            //shadow of the button
+                            my: 2, px: 2, color: "black", display: "block",
+                            backgroundColor: '#FFF',
+                            border: '1px solid 	#008000',
                             boxShadow: '0 0 10px 0 #000000',
-                            //hover color
+                            borderRadius: '15px',
                             '&:hover': {
-                                //slight pink
-                                backgroundColor: '#ff5c8e',
+                                backgroundColor: '#B5B2B2',
                             },
                         }}
                     >
-                        Bebestibles
+                        Bebidas
                     </Button>
                     <Button
-                        /* go to salsas smooth scroll*/
                         href="#salsas"
                         sx={{
-                            my: 2, px: 2, color: "white", display: "block",
+                            my: 2, px: 2, color: "black", display: "block",
                             mx: 2,
-                            backgroundColor: '#8b0000',
-                            //shadow of the button
+                            backgroundColor: '#FFF',
+                            border: '1px solid 	#008000',
                             boxShadow: '0 0 10px 0 #000000',
-                            //hover color
+                            borderRadius: '15px',
                             '&:hover': {
-                                //slight pink
-                                backgroundColor: '#ff5c8e',
+                                backgroundColor: '#B5B2B2',
                             },
                         }}
                     >

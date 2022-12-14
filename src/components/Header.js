@@ -13,7 +13,7 @@ const Header = ({cart, openCart}) => {
     const handleCloseNavMenu = () => { setAnchorNav(null); };
 
     return (
-        <AppBar position="static" style={{ background: "blue" }}>
+        <AppBar position="sticky" style={{ background: "blue" }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     {/* Responsive Title XL */}
