@@ -2,6 +2,7 @@ import { Avatar, Box, Button, Drawer, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import pizzas from "../data/pizzas";
 import CloseIcon from '@mui/icons-material/Close';
+import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 
 const Carro = ({ closeCart, show, cart, clean, deleteI }) => {
 
@@ -28,6 +29,38 @@ const Carro = ({ closeCart, show, cart, clean, deleteI }) => {
             return (<Typography variant="subtitle2">Tamaño: {order.tamanio}</Typography>);
         }
     };
+
+    const carroVacio = () => {
+        if (cart.length === 0) {
+            return (
+                <Paper sx={{ mt: 2, p: 2, textAlign: "center" }}>
+                    <Typography variant="h5" sx={{ mt: 2 }}>Tu carro está vacío</Typography>
+                    <ProductionQuantityLimitsIcon sx={{
+                        mt: 1,
+                        // bigger icon
+                        fontSize: 75,
+                    }} />
+                </Paper>
+
+            );
+        } else {
+            return (
+                <Box
+                    sx={{ p: 4 }}
+                    display="flex"
+                    justifyContent={"center"}
+                    flexDirection="column"
+                    alignItems="center">
+                    <Paper>
+                        {cartContent}
+                    </Paper>
+                    <Typography variant="h5" sx={{ mt: 2 }}>Total: $<b>{total}</b></Typography>
+                    <Button onClick={guardarCarro}>Pagar</Button>
+                </Box>
+            );
+        }
+    };
+
 
     useEffect(() => {
         getTotal();
@@ -77,11 +110,7 @@ const Carro = ({ closeCart, show, cart, clean, deleteI }) => {
                 alignItems="center"
             >
                 <Typography variant="h5" sx={{ mb: 1 }}>Tu pedido <CloseIcon sx={{ mt: 2 }} onClick={() => clean()} /></Typography>
-                <Paper>
-                    {cartContent}
-                </Paper>
-                <Typography variant="h5" sx={{ mt: 2 }}>Total: $<b>{total}</b></Typography>
-                <Button onClick={guardarCarro}>Pagar</Button>
+                {cart.length === 0 ? carroVacio() : carroVacio()}
             </Box>
         </Drawer>
     );

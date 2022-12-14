@@ -120,6 +120,7 @@ const Personalizada = ({cart, addToCart}) => {
 
     const [qty, setQty] = useState(1);
     const handleQty = (event) => {
+        event.preventDefault();
         let newQty = parseInt(event.target.value);
         setQty(newQty);
 

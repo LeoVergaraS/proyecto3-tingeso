@@ -115,7 +115,7 @@ const Header = ({cart, openCart}) => {
                     
                     <Box>
                         <Badge badgeContent={cart && cart.length} color="secondary">
-                            <ShoppingCart onClick={() => openCart()}/>
+                            <ShoppingCart sx={{cursor: "pointer"}}onClick={() => openCart()}/>
                         </Badge>
                     </Box>
                 </Toolbar>
