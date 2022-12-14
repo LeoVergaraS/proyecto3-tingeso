@@ -55,7 +55,12 @@ const Carro = ({ closeCart, show, cart, clean, deleteI }) => {
                         {cartContent}
                     </Paper>
                     <Typography variant="h5" sx={{ mt: 2 }}>Total: $<b>{total}</b></Typography>
-                    <Button onClick={guardarCarro}>Pagar</Button>
+                    <Button onClick={guardarCarro}
+                    fullWidth 
+                    size="small"
+                    sx={{fontSize: "150%", 
+                    "&:hover": {backgroundColor: "#1976d2", color: "white"}}}
+                    >Pagar</Button>
                 </Box>
             );
         }
@@ -83,7 +88,7 @@ const Carro = ({ closeCart, show, cart, clean, deleteI }) => {
                     </Box>
                     <Box display="flex" flexDirection={"column"}>
                         <Typography variant="h5" justifyContent={"end"}>${order.precio}</Typography>
-                        <CloseIcon sx={{ ml: 7 }} onClick={() => deleteI(index)} />
+                        <CloseIcon sx={{ ml: 7, cursor: "pointer", color: "#DF5537" }} onClick={() => deleteI(index)} />
                     </Box>
                 </Box>
             </Box>
@@ -99,6 +104,7 @@ const Carro = ({ closeCart, show, cart, clean, deleteI }) => {
                 sx: {
                     width: 350,
                     background: "#E8E8E8",
+                    
                 }
             }}
         >
@@ -109,7 +115,7 @@ const Carro = ({ closeCart, show, cart, clean, deleteI }) => {
                 flexDirection="column"
                 alignItems="center"
             >
-                <Typography variant="h5" sx={{ mb: 1 }}>Tu pedido <CloseIcon sx={{ mt: 2 }} onClick={() => clean()} /></Typography>
+                <Typography variant="h5" sx={{ mb: 1 }}>Tu pedido <CloseIcon sx={{ mt: 1, cursor: "pointer", color: "#DF5537"  }} onClick={() => clean()} /></Typography>
                 {cart.length === 0 ? carroVacio() : carroVacio()}
             </Box>
         </Drawer>

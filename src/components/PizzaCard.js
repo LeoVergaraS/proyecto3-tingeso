@@ -45,7 +45,9 @@ const PizzaCard = ({ pizza, addToCart }) => {
 
     return (
         <div>
-            <Card sx={{ width: 325, marginLeft: 3, marginBottom: 3 }}>
+            <Card sx={{ width: 325, marginLeft: 3, marginBottom: 3, boxShadow: "0 0 5px 0 #000000", '&:hover': {
+                                boxShadow: "0 0 10px 0 #000000"
+                            },}}>
                 <CardMedia component="img" height="140" image={pizza.imagen}></CardMedia>
                 <CardContent>
                     <Typography>{pizza.nombre}</Typography>
@@ -80,7 +82,7 @@ const PizzaCard = ({ pizza, addToCart }) => {
                     <p>Precio: <b>{precio}</b></p>
                 </CardContent>
                 <CardActions>
-                    <Button endIcon={<ShoppingCart />} fullWidth size="small" onClick={generarOrder}> Añadir</Button>
+                    <Button sx={{"&:hover": {backgroundColor: "#1976d2", color: "white"}}} endIcon={<ShoppingCart />} fullWidth size="small" onClick={generarOrder}> Añadir</Button>
                 </CardActions>
             </Card>
         </div>

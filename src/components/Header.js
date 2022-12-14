@@ -4,6 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from "react";
 import pages from "../data/pages";
+import { LocalPizza } from "@mui/icons-material";
 
 const Header = ({cart, openCart}) => {
 
@@ -17,13 +18,18 @@ const Header = ({cart, openCart}) => {
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     {/* Responsive Title XL */}
-                    <Typography
-                        variant="h5"
-                        noWrap
+                    <LocalPizza
+                        href="/"
+                        sx={{
+                            //link to main page
+                            display: { xs: 'none', md: 'flex' },
+                            //pointer
+                            cursor: 'pointer'
+                        }} />
+                    <Typography variant="h5" noWrap
                         component="a"
                         href="/"
                         sx={{
-                            mr: 2,
                             display: { xs: "none", md: "flex" },
                             fontFamily: "monospace",
                             fontWeight: 600,
@@ -32,7 +38,7 @@ const Header = ({cart, openCart}) => {
                             textDecoration: "none"
                         }}
                     >
-                        Pizzas
+                        PIZZA VALO
                     </Typography>
                     {/* Responsive XS */}
                     <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -92,7 +98,7 @@ const Header = ({cart, openCart}) => {
                         textDecoration: "none"
                         }}
                     >
-                        Pizzas
+                        PIZZA VALO
                     </Typography>
                     {/* Responsive XL */}
                     <Box sx={{
@@ -100,7 +106,7 @@ const Header = ({cart, openCart}) => {
                         display: { xs: "none", md: "flex" },
                         justifyContent: "center",
                         alignItems: "center",
-                        mr: 11
+                        mr: 18
                     }}>
                         {pages.map((page) => (
                         <Button

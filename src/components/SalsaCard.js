@@ -30,7 +30,9 @@ const SalsaCard = ({ salsa, addToCart }) => {
     };
 
     return (
-        <Card sx={{ width: 325, marginLeft: 3, marginBottom: 3 }}>
+        <Card sx={{ width: 325, marginLeft: 3, marginBottom: 3 , boxShadow: "0 0 5px 0 #000000",'&:hover': {
+            boxShadow: "0 0 10px 0 #000000"
+        },}}>
             <CardMedia component="img" height="140" image={salsa.imagen}></CardMedia>
             <CardContent>
                 <Typography>{salsa.nombre}</Typography>
@@ -50,7 +52,7 @@ const SalsaCard = ({ salsa, addToCart }) => {
                     <p>Precio: <b>{precio}</b></p>            
                 </CardContent>
             <CardActions>
-                <Button endIcon={<ShoppingCart/>} fullWidth onClick={generarOrder} size="small"> Añadir</Button>
+                <Button endIcon={<ShoppingCart/>} sx={{"&:hover": {backgroundColor: "#1976d2", color: "white"}}} fullWidth onClick={generarOrder} size="small"> Añadir</Button>
             </CardActions>
         </Card>
     );

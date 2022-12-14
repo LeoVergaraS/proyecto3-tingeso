@@ -30,8 +30,10 @@ const BebidaCard = ({ bebida, addToCart }) => {
     };
 
     return (
-        <Card sx={{ width: 325, marginLeft: 3, marginBottom: 3 }}>
-            <CardMedia component="img" height="140" image={bebida.imagen}></CardMedia>
+        <Card sx={{ width: 325, marginLeft: 3, marginBottom: 3, boxShadow: "0 0 5px 0 #000000", '&:hover': {
+            boxShadow: "0 0 10px 0 #000000"
+        }, }}>
+            <CardMedia component="img" height="250" image={bebida.imagen}></CardMedia>
             <CardContent>
                 <Typography>{bebida.nombre}</Typography>
                 <Typography variant="subtitle3" color={"text.secondary"}>{bebida.descripcion}</Typography>
@@ -50,7 +52,7 @@ const BebidaCard = ({ bebida, addToCart }) => {
                 <p>Precio: <b>{precio}</b></p>
             </CardContent>
             <CardActions>
-                <Button fullWidth endIcon={<ShoppingCart />} size="small" onClick={generarOrder}> Añadir</Button>
+                <Button sx={{"&:hover": {backgroundColor: "#1976d2", color: "white"}}} fullWidth endIcon={<ShoppingCart />} size="small" onClick={generarOrder}> Añadir</Button>
             </CardActions>
         </Card>
     );

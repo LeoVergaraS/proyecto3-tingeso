@@ -28,7 +28,7 @@ const Menu = ({ addToCart, addToCartByS }) => {
                             my: 2, px: 2, color: "black", display: "block",
                             backgroundColor: '#FFF',
                             mx: 2,
-                            border: '1px solid #008000',
+                            border: '1px solid blue',
                             boxShadow: '0 0 10px 0 #000000',
                             borderRadius: '15px',
                             '&:hover': {
@@ -43,7 +43,7 @@ const Menu = ({ addToCart, addToCartByS }) => {
                         sx={{
                             my: 2, px: 2, color: "black", display: "block",
                             backgroundColor: '#FFF',
-                            border: '1px solid 	#008000',
+                            border: '1px solid blue',
                             boxShadow: '0 0 10px 0 #000000',
                             borderRadius: '15px',
                             '&:hover': {
@@ -59,7 +59,7 @@ const Menu = ({ addToCart, addToCartByS }) => {
                             my: 2, px: 2, color: "black", display: "block",
                             mx: 2,
                             backgroundColor: '#FFF',
-                            border: '1px solid 	#008000',
+                            border: '1px solid 	blue',
                             boxShadow: '0 0 10px 0 #000000',
                             borderRadius: '15px',
                             '&:hover': {
@@ -84,7 +84,7 @@ const Menu = ({ addToCart, addToCartByS }) => {
                         >
                             {pizzas.map((pizza, index) => {
                                 return (
-                                    <PizzaCard key={index} pizza={pizza} addToCart={addToCart} />
+                                    <PizzaCard  key={index} pizza={pizza} addToCart={addToCart} />
                                 );
                             })}
                         </Grid>

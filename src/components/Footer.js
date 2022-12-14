@@ -1,5 +1,6 @@
 import { Box, Container, Grid, Link } from "@mui/material";
-import logov2 from "../data/images/logov2.jpeg";
+import { LocalPizza } from "@mui/icons-material";
+import { Typography } from "@mui/material";
 
 const Footer = () => {
     return (
@@ -13,9 +14,33 @@ const Footer = () => {
                 <Container maxWidth="lg">
                     <Grid container spacing={5}>
                         <Grid item xs={12} sm={4}>
+                        <LocalPizza
+                        href="/"
+                        sx={{
+                            //link to main page
+                            display: { xs: 'none', md: 'flex' },
+                            mr: 2,
+                            //pointer
+                            cursor: 'pointer'
+                        }} />
+                    <Typography variant="h5" noWrap
+                        component="a"
+                        href="/"
+                        sx={{
+                            mr: 2,
+                            display: { xs: "none", md: "flex" },
+                            fontFamily: "monospace",
+                            fontWeight: 600,
+                            letterSpacing: ".1rem",
+                            color: "inherit",
+                            textDecoration: "none"
+                        }}
+                    >
+                        PIZZA VALO
+                    </Typography>
                         </Grid>
                         <Grid item xs={12} sm={4}>
-                            <Box borderBottom={1}>Pizza Valo</Box>
+                            <Box sx={{mb: 1}}>Pizza Valo</Box>
                             <Box>
                                 <Link color="inherit" href="/menu">
                                     Menú
@@ -28,7 +53,7 @@ const Footer = () => {
                             </Box>
                         </Grid>
                         <Grid item xs={12} sm={4}>
-                        <Box borderBottom={1}>Ayuda</Box>
+                        <Box sx={{mb: 1}}>Ayuda</Box>
                         <Box>
                             <Link color="inherit" href="/">
                                 Contacto
@@ -48,6 +73,7 @@ const Footer = () => {
                     </Grid>
                 </Container>
             </Box>
+            
         </footer>
     );
 };

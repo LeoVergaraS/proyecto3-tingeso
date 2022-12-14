@@ -1,4 +1,4 @@
-import { Box, Button, Container, FormControlLabel, Grid, Paper, Radio, RadioGroup, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material"
+import { Box, Button, Container, FormControlLabel, Grid, Paper, Radio, RadioGroup, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material"
 import { useState } from "react";
 
 const Personalizada = ({cart, addToCart}) => {
@@ -118,23 +118,13 @@ const Personalizada = ({cart, addToCart}) => {
         }
     ];
 
-    const [qty, setQty] = useState(1);
-    const handleQty = (event) => {
-        event.preventDefault();
-        let newQty = parseInt(event.target.value);
-        setQty(newQty);
-
-        handleTotal();
-    };
-
     const [total, setTotal] = useState(10000);
     const handleTotal = () => {
-        console.log(qty);
         let cantCarnes = detalle.carnes.length;
         let cantVegetales = detalle.vegetales.length;
         let base = detalle.tamanio.precio;
         let cantQueso = detalle.cantidadQueso.precio;
-        let precio = qty * (base + cantQueso + (cantCarnes * 700 + cantVegetales * 500));
+        let precio = base + cantQueso + (cantCarnes * 700 + cantVegetales * 500);
         setTotal(precio);
     };
 
@@ -210,11 +200,11 @@ const Personalizada = ({cart, addToCart}) => {
         console.log(generarDescripcion());
         let order = {
             "id": cart.length,
-            "nombre": "Tu pizza",
+            "nombre": "TU PIZZA",
             "imagen": "https://cdn.tictuk.com/29ee7b0d-dc6d-0cc0-d2c6-479518774e5d/859107ed-ad95-2b27-f830-b0c0f5f42723.jpeg?a=cd37fbcc-8f6c-296f-7e2c-51933b994885",
             "descripcion": generarDescripcion(),
             "tamanio": detalle.tamanio.nombre,
-            "cantidad": qty,
+            "cantidad": 1,
             "precio": total
         };
         addToCart(order);
@@ -248,7 +238,7 @@ const Personalizada = ({cart, addToCart}) => {
                 <Grid container spacing={3}>
                     <Grid item xs={6} sm={7}>
                         <Typography variant="h5">Ingredientes</Typography>
-                        <Paper sx={{ p: 1, mt: 1 }}>
+                        <Paper sx={{ p: 1, mt: 1, boxShadow: "0 0 2.5px 0 #000000" }}>
                             <Typography variant="h6">Carnes</Typography>
                             <Typography variant="subtitle2">+<b>$700</b> por cada uno</Typography>
                             <ToggleButtonGroup
@@ -266,7 +256,7 @@ const Personalizada = ({cart, addToCart}) => {
                                 })}
                             </ToggleButtonGroup>
                         </Paper>
-                        <Paper sx={{ p: 1, mt: 1 }}>
+                        <Paper sx={{ p: 1, mt: 1, boxShadow: "0 0 2.5px 0 #000000"  }}>
                             <Typography variant="h6">Vegetales</Typography>
                             <Typography variant="subtitle2">+<b>$500</b> por cada uno</Typography>
                             <ToggleButtonGroup
@@ -284,7 +274,7 @@ const Personalizada = ({cart, addToCart}) => {
                                 })}
                             </ToggleButtonGroup>
                         </Paper>
-                        <Paper sx={{ p: 1, mt: 1 }}>
+                        <Paper sx={{ p: 1, mt: 1, boxShadow: "0 0 2.5px 0 #000000"  }}>
                             <Typography variant="h6">Queso</Typography>
                             <Typography variant="subtitle2">Elige un tipo de queso</Typography>
                             <RadioGroup
@@ -308,7 +298,7 @@ const Personalizada = ({cart, addToCart}) => {
                                 })}
                             </RadioGroup>
                         </Paper>
-                        <Paper sx={{ p: 1, mt: 1 }}>
+                        <Paper sx={{ p: 1, mt: 1, boxShadow: "0 0 2.5px 0 #000000"  }}>
                             <Typography variant="h6">Cantidad queso</Typography>
                             <RadioGroup
                                 row
@@ -331,7 +321,7 @@ const Personalizada = ({cart, addToCart}) => {
                                 })}
                             </RadioGroup>
                         </Paper>
-                        <Paper sx={{ p: 1, mt: 1 }}>
+                        <Paper sx={{ p: 1, mt: 1, boxShadow: "0 0 2.5px 0 #000000"  }}>
                             <Typography variant="h6">Masa</Typography>
                             <Typography variant="subtitle2">Elige un tipo de masa</Typography>
                             <RadioGroup
@@ -355,7 +345,7 @@ const Personalizada = ({cart, addToCart}) => {
                                 })}
                             </RadioGroup>
                         </Paper>
-                        <Paper sx={{ p: 1, mt: 1 }}>
+                        <Paper sx={{ p: 1, mt: 1, boxShadow: "0 0 2.5px 0 #000000"  }}>
                             <Typography variant="h6">Tamaño</Typography>
                             <RadioGroup
                                 row
@@ -381,26 +371,14 @@ const Personalizada = ({cart, addToCart}) => {
                     </Grid>
                     <Grid item xs={6} sm={5}>
                         <Typography variant="h5">Tu pizza</Typography>
-                        <Paper sx={{ p: 1, mt: 1 }}>
+                        <Paper sx={{ p: 1, mt: 1, boxShadow: "0 0 2.5px 0 #000000" }}>
                             <Typography variant="h6">Detalle</Typography>
                             {detallesInfo()}
                             <hr></hr>
                             <Box
-                                sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', itemsAlign: 'center' }}
+                                sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', itemsAlign: 'center' }}
                             >
-                                <Typography variant="h5" sx={{ mt: 1.5 }}>Total: $<b>{total}</b></Typography>
-                                <TextField
-                                    sx={{ m: 1, width: "50%" }}
-                                    id="personalizada-cantidad"
-                                    type="number"
-                                    label="Cantidad"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                    inputProps={{ min: 1, max: 50, value: qty }}
-                                    size="small"
-                                    onChange={handleQty}
-                                />
+                                <Typography variant="h5" sx={{ mt: 1 }}>Total: $<b>{total}</b></Typography>
                             </Box>
                             <Button
                                 variant="contained"

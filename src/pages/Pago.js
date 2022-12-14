@@ -1,7 +1,7 @@
 import { RadioGroup, FormControlLabel, Radio, FormControl, TextField, Typography, Grid, Container, Paper, Button } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
-import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
+import swal from "sweetalert";
 
 const Pago = ({ cart }) => {
     const [total, setTotal] = useState(0);
@@ -43,6 +43,13 @@ const Pago = ({ cart }) => {
         let newPropina = parseFloat(e.target.value);
         setPropina(newPropina);
     };
+
+    const [tienda, setTienda] = useState("Tienda 1");
+    const handleTienda = (e) => {
+        setTienda(e.target.value);
+        console.log(tienda);
+    };
+
 
     const [datos, setDatos] = useState({
         "nombre": "",
@@ -87,12 +94,35 @@ const Pago = ({ cart }) => {
     };
 
     const realizarPago = () => {
-        alert("Pago realizado con exito");
+        // if(datos.email === "" || datos.nombre === "" || datos.telefono === ""){
+        //     swal({
+        //         title: "Orden realizada!",
+        //         text: "Orden realizado con éxito!",
+        //         icon: "success",
+        //         button: "Ok",
+        //     });
+        // }
+
+        if(metodo === "efectivo" || metodo === "tarjeta"){
+            swal({
+                title: "Orden realizada!",
+                text: "Orden realizado con éxito!",
+                icon: "success",
+                button: "Ok",
+            });
+        }else{
+            swal({
+                title: "Pago con Webpay",
+                text: "Será direccionado a Webpay",
+                icon: "info",
+                button: "Ok",
+            });
+        }
     };
 
     const paperTarjeta = () => {
         return (
-            <Paper sx={{ p: 1, mt: 1 }}>
+            <Paper sx={{ p: 1, mt: 2, boxShadow: "0 0 2.5px 0 #000000" }}>
                 <Typography variant="h6">Datos de la tarjeta</Typography>
                 <FormControl sx={{ display: "inline-block" }}>
                     <TextField sx={{ mt: 2 }}
@@ -157,12 +187,12 @@ const Pago = ({ cart }) => {
 
     const paperEfectivo = () => {
         return (
-            <Paper sx={{ p: 1, mt: 1 }}>
+            <Paper sx={{ p: 1, mt: 2, boxShadow: "0 0 2.5px 0 #000000" }}>
                 <Typography variant="h6">¿Con cuanto pagará?</Typography>
                 <Box
                     sx={{ display: 'flex', alignItems: 'center' }}
                 >
-                    <Typography variant="subtitle1" sx={{ mr: 1, mt: 1.5 }}>Total: ${total}, pagará con: </Typography>
+                    <Typography variant="subtitle1" sx={{ mr: 1, mt: 1.5 }}>Total: ${total + parseInt(propina * total)}, pagará con: </Typography>
                     <TextField
                         sx={{ mt: 2 }}
                         id="apagar"
@@ -170,20 +200,19 @@ const Pago = ({ cart }) => {
                         InputLabelProps={{
                             shrink: true,
                         }}
-                        inputProps={{ min: total, max: 2 * total, value: qty }}
-                        placeholder={total.toString()}
+                        inputProps={{ min: total + parseInt(propina * total), max: 2 * (total + parseInt(propina * total)), value: qty }}
                         size="small"
                         onChange={handleQty}
                     />
                 </Box>
-                <Typography variant="subtitle1" sx={{ mt: 1.5 }}>Su cambio será: ${qty - total}</Typography>
+                <Typography variant="subtitle1" sx={{ mt: 1.5 }}>Su cambio será: ${qty - (total + parseInt(propina * total))}</Typography>
             </Paper>
         );
     };
 
     const paperDomicilio = () => {
         return (
-            <Paper sx={{ p: 1, mt: 1 }}>
+            <Paper sx={{ p: 1, mt: 2, boxShadow: "0 0 2.5px 0 #000000" }}>
                 <Typography variant="h6">Su dirección</Typography>
                 <FormControl sx={{ display: "inline-block" }}>
                     <TextField sx={{ mt: 2 }}
@@ -230,6 +259,43 @@ const Pago = ({ cart }) => {
         );
     };
 
+    const paperTienda = () => {
+        return (
+            <Paper sx={{ p: 1, mt: 2, boxShadow: "0 0 2.5px 0 #000000" }}>
+                <Typography variant="h6">Tiendas</Typography>
+                <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="row-radio-buttons-group"
+                    sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', itemsAlign: 'center' }}
+                >
+                    <Paper sx={{ p: 1 }}>
+                        <FormControlLabel
+                            key="1"
+                            value="Tienda 1"
+                            name="Tienda 1"
+                            label={"Tienda 1 - Av. Siempre Viva 742, Providencia"}
+                            control={<Radio />}
+                            checked={tienda === "Tienda 1" ? true : false}
+                            onChange={handleTienda}
+                        />
+                    </Paper>
+                    <Paper sx={{ p: 1, mt: 1}}>
+                        <FormControlLabel
+                            key="2"
+                            value="Tienda 2"
+                            name="Tienda 2"
+                            label={"Tienda 2 - Av. Independencia 1022, Independencia"}
+                            control={<Radio />}
+                            checked={tienda === "Tienda 2" ? true : false}
+                            onChange={handleTienda}
+                        />
+                    </Paper>
+                </RadioGroup>
+            </Paper>
+        );
+    };
+
     return (
         <Box
             px={{ xs: 2, sm: 10 }}
@@ -239,7 +305,7 @@ const Pago = ({ cart }) => {
             <Container maxWidth="xl">
                 <Grid container spacing={3}>
                     <Grid item xs={6} sm={7}>
-                        <Paper sx={{ p: 1, mt: 1 }}>
+                        <Paper sx={{ p: 1, mt: 2, boxShadow: "0 0 2.5px 0 #000000" }}>
                             <Typography variant="h6">Datos de envío</Typography>
                             <FormControl sx={{ display: "inline-block" }}>
                                 <TextField sx={{ mt: 2 }}
@@ -287,7 +353,7 @@ const Pago = ({ cart }) => {
                                 />
                             </FormControl>
                         </Paper>
-                        <Paper sx={{ p: 1, mt: 1 }}>
+                        <Paper sx={{ p: 1, mt: 2, boxShadow: "0 0 2.5px 0 #000000" }}>
                             <Typography variant="h6">Método de pago</Typography>
                             <RadioGroup
                                 row
@@ -295,7 +361,7 @@ const Pago = ({ cart }) => {
                                 name="row-radio-buttons-group"
                                 sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', itemsAlign: 'center' }}
                             >
-                                <Paper sx={{ p: 1, mr: 1 }}>
+                                <Paper sx={{ p: 1, mr: 1, boxShadow: "0 0 2px 0 #000000"  }}>
                                     <FormControlLabel
                                         key="1"
                                         value="efectivo"
@@ -306,7 +372,7 @@ const Pago = ({ cart }) => {
                                         onChange={handleMetodo}
                                     />
                                 </Paper>
-                                <Paper sx={{ p: 1, mr: 1, ml: 1 }}>
+                                <Paper sx={{ p: 1, mr: 1, ml: 1, boxShadow: "0 0 2px 0 #000000"  }}>
                                     <FormControlLabel
                                         key="2"
                                         value="tarjeta"
@@ -317,7 +383,7 @@ const Pago = ({ cart }) => {
                                         onChange={handleMetodo}
                                     />
                                 </Paper>
-                                <Paper sx={{ p: 1, ml: 1 }}>
+                                <Paper sx={{ p: 1, ml: 1, boxShadow: "0 0 2px 0 #000000"   }}>
                                     <FormControlLabel
                                         key="3"
                                         value="webpay"
@@ -332,7 +398,7 @@ const Pago = ({ cart }) => {
                         </Paper>
                         {metodo === "tarjeta" ? paperTarjeta() : null}
                         {metodo === "efectivo" ? paperEfectivo() : null}
-                        <Paper sx={{ p: 1, mt: 1 }}>
+                        <Paper sx={{ p: 1, mt: 2, boxShadow: "0 0 2.5px 0 #000000" }}>
                             <Typography variant="h6">Tipo de recibo</Typography>
                             <RadioGroup
                                 row
@@ -340,7 +406,7 @@ const Pago = ({ cart }) => {
                                 name="row-radio-buttons-group"
                                 sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', itemsAlign: 'center' }}
                             >
-                                <Paper sx={{ p: 1, mr: 1 }}>
+                                <Paper sx={{ p: 1, mr: 1 , boxShadow: "0 0 2px 0 #000000"  }}>
                                     <FormControlLabel
                                         key="1"
                                         value="boleta"
@@ -351,7 +417,7 @@ const Pago = ({ cart }) => {
                                         onChange={handleRecibo}
                                     />
                                 </Paper>
-                                <Paper sx={{ p: 1, mr: 1, ml: 1 }}>
+                                <Paper sx={{ p: 1, mr: 1, ml: 1 , boxShadow: "0 0 2px 0 #000000"  }}>
                                     <FormControlLabel
                                         key="2"
                                         value="factura"
@@ -366,7 +432,7 @@ const Pago = ({ cart }) => {
                         </Paper>
                     </Grid>
                     <Grid item xs={6} sm={5}>
-                        <Paper sx={{ p: 1, mt: 1 }}>
+                        <Paper sx={{ p: 1, mt: 2, boxShadow: "0 0 2.5px 0 #000000"  }}>
                             <Typography variant="h6">Modo de entrega</Typography>
                             <RadioGroup
                                 row
@@ -374,7 +440,7 @@ const Pago = ({ cart }) => {
                                 name="row-radio-buttons-group"
                                 sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', itemsAlign: 'center' }}
                             >
-                                <Paper sx={{ p: 1, mr: 1 }}>
+                                <Paper sx={{ p: 1, mr: 1, boxShadow: "0 0 2px 0 #000000"   }}>
                                     <FormControlLabel
                                         key="1"
                                         value="domicilio"
@@ -385,7 +451,7 @@ const Pago = ({ cart }) => {
                                         onChange={handleEntrega}
                                     />
                                 </Paper>
-                                <Paper sx={{ p: 1, mr: 1, ml: 1 }}>
+                                <Paper sx={{ p: 1, mr: 1, ml: 1, boxShadow: "0 0 2px 0 #000000"   }}>
                                     <FormControlLabel
                                         key="2"
                                         value="retiro"
@@ -400,7 +466,8 @@ const Pago = ({ cart }) => {
                             </RadioGroup>
                         </Paper>
                         {entrega === "domicilio" ? paperDomicilio() : null}
-                        <Paper sx={{ p: 1, mt: 1 }}>
+                        {entrega === "retiro" ? paperTienda() : null}
+                        <Paper sx={{ p: 1, mt: 2, boxShadow: "0 0 2.5px 0 #000000"  }}>
                             <Typography variant="h6">Cantidad de propina</Typography>
                             <RadioGroup
                                 row
@@ -408,7 +475,7 @@ const Pago = ({ cart }) => {
                                 name="row-radio-buttons-group"
                                 sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', itemsAlign: 'center' }}
                             >
-                                <Paper sx={{ p: 1, mr: 1 }}>
+                                <Paper sx={{ p: 1, mr: 1, boxShadow: "0 0 2px 0 #000000"  }}>
                                     <FormControlLabel
                                         key="1"
                                         value="0"
@@ -419,7 +486,7 @@ const Pago = ({ cart }) => {
                                         onChange={handlePropina}
                                     />
                                 </Paper>
-                                <Paper sx={{ p: 1, mr: 1, ml: 1 }}>
+                                <Paper sx={{ p: 1, mr: 1, ml: 1, boxShadow: "0 0 2px 0 #000000"   }}>
                                     <FormControlLabel
                                         key="2"
                                         value="0.05"
@@ -430,7 +497,7 @@ const Pago = ({ cart }) => {
                                         onChange={handlePropina}
                                     />
                                 </Paper>
-                                <Paper sx={{ p: 1, mr: 1, ml: 1 }}>
+                                <Paper sx={{ p: 1, ml: 1, boxShadow: "0 0 2px 0 #000000"   }}>
                                     <FormControlLabel
                                         key="3"
                                         value="0.1"
@@ -443,7 +510,7 @@ const Pago = ({ cart }) => {
                                 </Paper>
                             </RadioGroup>
                         </Paper>
-                        <Paper sx={{ p: 1, mt: 1 }}>
+                        <Paper sx={{ p: 1, mt: 2, boxShadow: "0 0 2.5px 0 #000000"  }}>
                             <Typography sx={{ mb: 1 }} variant="h6">Resumen de compra</Typography>
                             {cart.map((item) => (
                                 <Box>
@@ -460,12 +527,12 @@ const Pago = ({ cart }) => {
                             </Box>
                             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <Typography variant="subtitle 1">Propina</Typography>
-                                <Typography variant="subtitle 1">${propina * total}</Typography>
+                                <Typography variant="subtitle 1">${parseInt(propina * total)}</Typography>
                             </Box>
-                            <hr/>
+                            <hr />
                             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <Typography variant="subtitle 1">Total</Typography>
-                                <Typography variant="subtitle 1">${total + (propina * total)}</Typography>
+                                <Typography variant="subtitle 1">${total + parseInt(propina * total)}</Typography>
                             </Box>
                         </Paper>
                         <Button sx={{ mt: 2, height: 50 }} fullWidth onClick={realizarPago} variant="contained">
