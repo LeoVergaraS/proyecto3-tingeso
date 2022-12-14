@@ -33,6 +33,16 @@ const Pago = ({ cart }) => {
         setEntrega(e.target.value);
     };
 
+    const [recibo, setRecibo] = useState("boleta");
+    const handleRecibo = (e) => {
+        setRecibo(e.target.value);
+    };
+
+    const [propina, setPropina] = useState(0);
+    const handlePropina = (e) => {
+        let newPropina = parseFloat(e.target.value);
+        setPropina(newPropina);
+    };
 
     const [datos, setDatos] = useState({
         "nombre": "",
@@ -172,7 +182,7 @@ const Pago = ({ cart }) => {
     };
 
     const paperDomicilio = () => {
-        return(
+        return (
             <Paper sx={{ p: 1, mt: 1 }}>
                 <Typography variant="h6">Su dirección</Typography>
                 <FormControl sx={{ display: "inline-block" }}>
@@ -322,6 +332,38 @@ const Pago = ({ cart }) => {
                         </Paper>
                         {metodo === "tarjeta" ? paperTarjeta() : null}
                         {metodo === "efectivo" ? paperEfectivo() : null}
+                        <Paper sx={{ p: 1, mt: 1 }}>
+                            <Typography variant="h6">Tipo de recibo</Typography>
+                            <RadioGroup
+                                row
+                                aria-labelledby="demo-row-radio-buttons-group-label"
+                                name="row-radio-buttons-group"
+                                sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', itemsAlign: 'center' }}
+                            >
+                                <Paper sx={{ p: 1, mr: 1 }}>
+                                    <FormControlLabel
+                                        key="1"
+                                        value="boleta"
+                                        name="boleta"
+                                        label={"Boleta"}
+                                        control={<Radio />}
+                                        checked={recibo === "boleta" ? true : false}
+                                        onChange={handleRecibo}
+                                    />
+                                </Paper>
+                                <Paper sx={{ p: 1, mr: 1, ml: 1 }}>
+                                    <FormControlLabel
+                                        key="2"
+                                        value="factura"
+                                        name="factura"
+                                        label={"Factura"}
+                                        control={<Radio />}
+                                        checked={recibo === "factura" ? true : false}
+                                        onChange={handleRecibo}
+                                    />
+                                </Paper>
+                            </RadioGroup>
+                        </Paper>
                     </Grid>
                     <Grid item xs={6} sm={5}>
                         <Paper sx={{ p: 1, mt: 1 }}>
@@ -354,19 +396,84 @@ const Pago = ({ cart }) => {
                                         onChange={handleEntrega}
                                     />
                                 </Paper>
-                                
+
                             </RadioGroup>
                         </Paper>
                         {entrega === "domicilio" ? paperDomicilio() : null}
-                        <Button sx={{mt: 2, height: 50}}fullWidth onClick={realizarPago} variant="contained">
+                        <Paper sx={{ p: 1, mt: 1 }}>
+                            <Typography variant="h6">Cantidad de propina</Typography>
+                            <RadioGroup
+                                row
+                                aria-labelledby="demo-row-radio-buttons-group-label"
+                                name="row-radio-buttons-group"
+                                sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', itemsAlign: 'center' }}
+                            >
+                                <Paper sx={{ p: 1, mr: 1 }}>
+                                    <FormControlLabel
+                                        key="1"
+                                        value="0"
+                                        name="nada"
+                                        label={"Nada"}
+                                        control={<Radio />}
+                                        checked={propina === 0 ? true : false}
+                                        onChange={handlePropina}
+                                    />
+                                </Paper>
+                                <Paper sx={{ p: 1, mr: 1, ml: 1 }}>
+                                    <FormControlLabel
+                                        key="2"
+                                        value="0.05"
+                                        name="5%"
+                                        label={"5%"}
+                                        control={<Radio />}
+                                        checked={propina === 0.05 ? true : false}
+                                        onChange={handlePropina}
+                                    />
+                                </Paper>
+                                <Paper sx={{ p: 1, mr: 1, ml: 1 }}>
+                                    <FormControlLabel
+                                        key="3"
+                                        value="0.1"
+                                        name="10%"
+                                        label={"10%"}
+                                        control={<Radio />}
+                                        checked={propina === 0.1 ? true : false}
+                                        onChange={handlePropina}
+                                    />
+                                </Paper>
+                            </RadioGroup>
+                        </Paper>
+                        <Paper sx={{ p: 1, mt: 1 }}>
+                            <Typography sx={{ mb: 1 }} variant="h6">Resumen de compra</Typography>
+                            {cart.map((item) => (
+                                <Box>
+                                    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                                        <Typography key={item.id} variant="subtitle 1">{item.cantidad} x {item.nombre}-{item.tamanio}</Typography>
+                                        <Typography variant="subtitle 1">${item.precio}</Typography>
+                                    </Box>
+                                    <hr />
+                                </Box>
+                            ))}
+                            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                                <Typography variant="subtitle 1">Sub-total</Typography>
+                                <Typography variant="subtitle 1">${total}</Typography>
+                            </Box>
+                            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                                <Typography variant="subtitle 1">Propina</Typography>
+                                <Typography variant="subtitle 1">${propina * total}</Typography>
+                            </Box>
+                            <hr/>
+                            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                                <Typography variant="subtitle 1">Total</Typography>
+                                <Typography variant="subtitle 1">${total + (propina * total)}</Typography>
+                            </Box>
+                        </Paper>
+                        <Button sx={{ mt: 2, height: 50 }} fullWidth onClick={realizarPago} variant="contained">
                             Realizar pago
                         </Button>
                     </Grid>
                 </Grid>
             </Container>
-
-
-
         </Box>
     );
 };
