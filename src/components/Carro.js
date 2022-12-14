@@ -24,7 +24,7 @@ const Carro = ({ closeCart, show, cart, clean, deleteI }) => {
             item.id === order.id &&
             item.nombre === order.nombre
         ));
-        if (pizzaIndex >= 0) {
+        if (pizzaIndex >= 0 || order.nombre === "Tu pizza") {
             return (<Typography variant="subtitle2">Tamaño: {order.tamanio}</Typography>);
         }
     };

@@ -151,15 +151,15 @@ const Personalizada = ({cart, addToCart}) => {
     const generarDescripcion = () => {
         let carnes = "";
         let vegetales = "";
-        let descripcion = "Masa:\n" + detalle.masa.nombre + "\nQueso:\n" + detalle.cantidadQueso.nombre + "-" +detalle.queso.nombre;
+        let descripcion = "Ingredientes:"+ " Masa "+detalle.masa.nombre + ", Queso " + detalle.queso.nombre +"-"+detalle.cantidadQueso.nombre;
         if(detalle.vegetales.length > 0){
-            vegetales = vegetales + ",\nVegetales: "  
-            vegetales = vegetales + detalle.vegetales.map((vegetal) => vegetal);
+            vegetales = vegetales + ","
+            vegetales = vegetales + detalle.vegetales.map((vegetal) => " "+vegetal);
         }
         if(detalle.carnes.length > 0){
-            carnes = carnes + "\nCarnes: "
-            carnes = carnes + detalle.carnes.map((carne) => carne);
-        }    
+            carnes = carnes + ","
+            carnes = carnes + detalle.carnes.map((carne) => " "+carne);
+        }
         return descripcion+carnes+vegetales;
     };
 
@@ -205,7 +205,8 @@ const Personalizada = ({cart, addToCart}) => {
 
     
 
-    const generarOrder = () => {    
+    const generarOrder = () => {  
+        console.log(generarDescripcion());
         let order = {
             "id": cart.length,
             "nombre": "Tu pizza",
@@ -241,7 +242,7 @@ const Personalizada = ({cart, addToCart}) => {
         <Box
             px={{ xs: 2, sm: 10 }}
             py={{ xs: 5, sm: 7 }}
-        >
+        >   
             <Container maxWidth="xl">
                 <Grid container spacing={3}>
                     <Grid item xs={6} sm={7}>
