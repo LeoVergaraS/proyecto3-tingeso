@@ -101,7 +101,7 @@ function App() {
           <Route path="/" element={<Index/>} exact/>
           <Route path="/menu" element={<Menu addToCart={addToCart} addToCartByS={addToCartBebidaYSalsa}/>} exact/>
           <Route path="/tupizza" element={<Personalizada cart={cart} addToCart={addToCartPersonalizada}/>} exact/>
-          <Route path="/pago" element={<Pago addToCart={addToCart} addToCartByS={addToCartBebidaYSalsa}/>} exact/>
+          <Route path="/pago" element={<Pago cart={cart}/>} exact/>
         </Routes>
       </Container>
     </Layout>
