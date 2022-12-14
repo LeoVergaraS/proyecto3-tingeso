@@ -82,6 +82,11 @@ function App() {
     saveCart();
   };
 
+  const addToCartPersonalizada = (order) => {
+    setCart([...cart, order]);
+    saveCart();
+  };
+
   return (
     <Layout 
       cart={cart}
@@ -95,7 +100,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Index/>} exact/>
           <Route path="/menu" element={<Menu addToCart={addToCart} addToCartByS={addToCartBebidaYSalsa}/>} exact/>
-          <Route path="/tupizza" element={<Personalizada />} exact/>
+          <Route path="/tupizza" element={<Personalizada cart={cart} addToCart={addToCartPersonalizada}/>} exact/>
           <Route path="/pago" element={<Pago addToCart={addToCart} addToCartByS={addToCartBebidaYSalsa}/>} exact/>
         </Routes>
       </Container>
